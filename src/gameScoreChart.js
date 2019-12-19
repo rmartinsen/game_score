@@ -26,9 +26,10 @@ class GameScoreChart extends PureComponent {
                 labels: labels,
                 datasets: [
                     {
-                        label: playerId,
                         data: gameScores,
                         backgroundColor: this.getColor,
+                        borderColor: 'lightgray',
+                        borderWidth: .5
                     }
                 ]
             },
@@ -43,16 +44,21 @@ class GameScoreChart extends PureComponent {
                         },
                         offset: true,
                         ticks: {
-                            autoSkip: true,
-                            maxTicksLimit: 3,
-                            
+                            display: false
                         }
                     }],
                     yAxes: [{
                         gridLines: {
-                            display: false
+                            display: true
+                        },
+                        ticks: {
+                            suggestedMin: -10,
+                            suggestedMax: 50
                         }
                     }]
+                },
+                legend: {
+                    display: false
                 },
                 tooltips: {
                     callbacks: {
