@@ -28,7 +28,7 @@ class GameScoreChart extends PureComponent {
                     {
                         data: gameScores,
                         backgroundColor: this.getColor,
-                        borderColor: 'lightgray',
+                        borderColor: 'darkgray',
                         borderWidth: .5
                     }
                 ]
@@ -97,7 +97,7 @@ class GameScoreChart extends PureComponent {
         const h_val = val > 10 ? 34 : 215;
 
         const magnitude = Math.abs(10 - val);
-        const l_val = 100 - magnitude * 2
+        const l_val = 100 - magnitude * 2.5
 
         return `hsl(${h_val}, 100%, ${l_val}%)`
     }
