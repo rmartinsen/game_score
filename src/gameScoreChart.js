@@ -72,8 +72,6 @@ class GameScoreChart extends PureComponent {
         });
     }
 
-    // "ft": 2, "fta": 5, "orb": 2, "drb": 6, "stl": 0, "ast": 9, "blk": 0, "tov": 4, "pf": 4, "gameScore": 19.9}
-
     formatTooltip(idx) {
         const gameLog = this.props.gameLogs[idx]
         return [
