@@ -1,25 +1,32 @@
 import React, { PureComponent } from 'react';
 import Chart from 'chart.js'
 
+var myChart
 
 class GameScoreChart extends PureComponent {
     chartRef = React.createRef();
 
-    componentDidMount(){
+    componentDidUpdate(){
         const myChartRef = this.chartRef.current.getContext("2d");
-
+        
         const labels = this.props.gameLogs.map(x => x.gameDate)
         const gameScores = this.props.gameLogs.map(x => x.gameScore)
 
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        const selector = document.getElementById('playerSelect')
+        const playerId = selector.options[selector.selectedIndex].text
         
-        new Chart(myChartRef, {
+        myChart = new Chart(myChartRef, {
             type: "bar",
             data: {
                 //Bring in data
                 labels: labels,
                 datasets: [
                     {
-                        label: "Game Scores by Date",
+                        label: playerId,
                         data: gameScores,
                         backgroundColor: this.getColor,
                     }
@@ -37,7 +44,8 @@ class GameScoreChart extends PureComponent {
                         offset: true,
                         ticks: {
                             autoSkip: true,
-                            maxTicksLimit: 3
+                            maxTicksLimit: 3,
+                            
                         }
                     }],
                     yAxes: [{
@@ -53,7 +61,6 @@ class GameScoreChart extends PureComponent {
     getColor(context) {
         const idx = context.dataIndex
         const val = context.dataset.data[idx]
-        console.log(context)
         if (val < 0) {
             return 'hsl(215, 100%, 50%';
         } else if (val < 5) {
@@ -73,8 +80,6 @@ class GameScoreChart extends PureComponent {
         }
         
     }
-
-
 
     render() {
         return (
