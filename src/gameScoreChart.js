@@ -53,32 +53,46 @@ class GameScoreChart extends PureComponent {
                             display: false
                         }
                     }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: (tooltipItem) => {
+                            return this.formatTooltip(tooltipItem.index);
+                        }
+                    }
                 }
             }
         });
     }
 
+    // "ft": 2, "fta": 5, "orb": 2, "drb": 6, "stl": 0, "ast": 9, "blk": 0, "tov": 4, "pf": 4, "gameScore": 19.9}
+
+    formatTooltip(idx) {
+        const gameLog = this.props.gameLogs[idx]
+        return [
+                `Game Score: ${gameLog.gameScore}`,
+                `Points: ${gameLog.pts}`, 
+                `FG/FGA: ${gameLog.fg}/${gameLog.fga}`,
+                `FT/FTA: ${gameLog.ft}/${gameLog.fta}`,
+                `Rebounds: ${gameLog.orb + gameLog.drb}`,
+                `Assists: ${gameLog.ast}`,
+                `Steals: ${gameLog.stl}`,
+                `Blocks: ${gameLog.blk}`,
+                `Turnovers: ${gameLog.tov}`,
+                `Fouls: ${gameLog.pf}`
+                ]
+
+    }
+
     getColor(context) {
         const idx = context.dataIndex
         const val = context.dataset.data[idx]
-        if (val < 0) {
-            return 'hsl(215, 100%, 50%';
-        } else if (val < 5) {
-            return 'hsl(215, 100%, 75%';
-        } else if (val < 10) {
-            return 'hsl(215, 100%, 80%';
-        } else if (val < 12.5) {
-            return 'hsl(215, 100%, 91.2%';
-        } else if (val < 15) {
-            return 'hsl(34, 100%, 87%';
-        } else if (val < 20) {
-            return 'hsl(34, 100%, 72%';
-        } else if (val < 25) {
-            return 'hsl(34, 100%, 60%';
-        } else {
-            return 'hsl(34, 100%, 47%';
-        }
-        
+        const h_val = val > 10 ? 34 : 215;
+
+        const magnitude = Math.abs(10 - val);
+        const l_val = 100 - magnitude * 2
+
+        return `hsl(${h_val}, 100%, ${l_val}%)`
     }
 
     render() {
