@@ -65,7 +65,8 @@ class GameScoreChart extends PureComponent {
                         label: (tooltipItem) => {
                             return this.formatTooltip(tooltipItem.index);
                         }
-                    }
+                    },
+                    titleAlign: 'center'
                 }
             }
         });

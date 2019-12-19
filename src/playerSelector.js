@@ -15,7 +15,6 @@ class PlayerSelector extends PureComponent {
     {'playerId': 'thybuma01', 'playerName': 'Matisse Thybulle'},
     {'playerId': 'scottmi01','playerName': 'Mike Scott'},
     {'playerId': 'pelleno01', 'playerName': 'Norvel Pelle'},
-    {'playerId': 'netora01', 'playerName': 'Raul Neto'},
     {'playerId': 'miltosh01', 'playerName': 'Shake Milton'},
     {'playerId': 'harrito02', 'playerName': 'Tobias Harris'},
     {'playerId': 'burketr01', 'playerName': 'Trey Burke'},
@@ -27,11 +26,13 @@ class PlayerSelector extends PureComponent {
             return <option value={player.playerId} key={player.playerId}>{player.playerName}</option>
         })
 
-        return <div>
-            <select id="playerSelect" onChange={() => this.props.selectorOnChange()}>
-                {options}
-            </select>
-        </div>
+        return <section className="container">
+                <div className="dropdown">
+                    <select id="playerSelect" className="dropdown-select" onChange={() => this.props.selectorOnChange()}>
+                        {options}
+                    </select>
+                </div>
+        </section>
     }
 }
 
